@@ -16,25 +16,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.http import HttpResponse
+from home import views as home_view
+from blog import views as blog_view
 
 # quando faz chamada por requisição ao acessar um site, ela vai solicitar uma resposta para a chamada para exibir o resultado duma resquisição, que seria a resposta previamente estabelecida
 
 # resposta previamente estabelecida
-def home_view(request):
-    print('outro texto') # resposta que será mostrada dentro do terminal
-    return HttpResponse('HOME') # resposta para requisição de uma extensão com chamada dessa função
+# resposta será excluida, pois nesse módulos pode conter somente as URLs dos APP
+# def home_view(request):
+#     print('outro texto') # resposta que será mostrada dentro do terminal
+#     return HttpResponse('HOME') # resposta para requisição de uma extensão com chamada dessa função
 
-def blog_view(request):
-    print('outro texto') # resposta que será mostrada dentro do terminal
-    return HttpResponse('BLOG') # resposta para requisição de uma extensão com chamada dessa função
+# def blog_view(request):
+#     print('outro texto') # resposta que será mostrada dentro do terminal
+#     return HttpResponse('BLOG') # resposta para requisição de uma extensão com chamada dessa função
 
 
 # requisição pelo site, mostrando a extensão do URL da página, e de onde que está sendo puxada a resposta da requisição
 urlpatterns = [
+    path('', home_view.home), # requisição requerida após o URL principal
+    path('blog/', blog_view.blog), # requisição requerida após o URL principal
     path('admin/', admin.site.urls), # URL utilizada para varidação da existencia do servidor, assim que for inserida outras URLs, esse site ficará indisponível, mesmo se apagar esse código após criarem outros caminhos não vai dar problema
-    path('blog/', blog_view), # requisição requerida após o URL principal
-    path('', home_view), # requisição requerida após o URL principal
 ]
 
 # o que foi feito com def home_view e blog_view geralmente não acontece quando mexe com Django, geralmente no django é criada APPs para serem informadas dentro do arquivo settings.py
