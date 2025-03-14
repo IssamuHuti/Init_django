@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from home import views as home_view
 from blog import views as blog_view
 
@@ -33,9 +33,15 @@ from blog import views as blog_view
 
 
 # requisição pelo site, mostrando a extensão do URL da página, e de onde que está sendo puxada a resposta da requisição
+# urlpatterns = [
+#     path('', home_view.home), # requisição requerida após o URL principal
+#     path('blog/', blog_view.blog), # requisição requerida após o URL principal
+#     path('admin/', admin.site.urls), # URL utilizada para varidação da existencia do servidor, assim que for inserida outras URLs, esse site ficará indisponível, mesmo se apagar esse código após criarem outros caminhos não vai dar problema
+# ]
+
 urlpatterns = [
-    path('', home_view.home), # requisição requerida após o URL principal
-    path('blog/', blog_view.blog), # requisição requerida após o URL principal
+    path('', include('home.urls')), # está puxando o arquivo urls dentro da pasta home
+    path('blog/', include('blog.urls')), # está puxando o arquivo urls dentro da pasta blog
     path('admin/', admin.site.urls), # URL utilizada para varidação da existencia do servidor, assim que for inserida outras URLs, esse site ficará indisponível, mesmo se apagar esse código após criarem outros caminhos não vai dar problema
 ]
 
